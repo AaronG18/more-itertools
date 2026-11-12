@@ -144,14 +144,24 @@ def tabulate(function, start=0):
     return map(function, count(start))
 
 
-def tail(n, iterable):
+def tail(n, iterable, pad=None):
     """Return an iterator over the last *n* items of *iterable*.
+
+    If *pad* is given and *iterable* has fewer than *n* items, the leading
+    positions are filled with *pad* instead of being omitted.
 
     >>> t = tail(3, 'ABCDEFG')
     >>> list(t)
     ['E', 'F', 'G']
+    >>> list(tail(5, 'ABC', pad='-'))
+    ['-', '-', 'A', 'B', 'C']
 
     """
+    if pad is not None and n > 0:
+        items = list(iterable)
+        if len(items) >= n:
+            return iter(items[-n:])
+        return iter([pad] * (n - len(items)) + items)
     try:
         size = len(iterable)
     except TypeError:
