@@ -160,6 +160,16 @@ def tail(n, iterable):
         return islice(iterable, max(0, size - n), None)
 
 
+def reverse_words(text):
+    """Return *text* with each whitespace-separated word reversed in place.
+
+    >>> reverse_words('hello world')
+    'olleh dlrow'
+
+    """
+    return ' '.join(word[::-1] for word in text.split())
+
+
 def consume(iterator, n=None):
     """Advance *iterable* by *n* steps. If *n* is ``None``, consume it
     entirely.
